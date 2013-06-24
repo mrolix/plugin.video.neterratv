@@ -24,7 +24,7 @@ import os.path
 
 
 # set debug to generate log entries
-DEBUG = True
+DEBUG = False
 
 #libname
 LIBNAME = 'neterratv'
