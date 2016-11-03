@@ -654,17 +654,24 @@ returns true if login successful
 '''
 def playLiveStream(tv_username, tv_password, url):
     log('Start playLiveStream')
-    #get a neterra class
+	#get a neterra class
     Neterra = neterra(tv_username, tv_password)    
     html=Neterra.getTVStream(url)
     #log(html)
     #parse html for flashplayer link
     startpoint = html.find('http')
+    isFlash = False
+    if (startpoint == -1):
+        isFlash = True
+        startpoint = html.find('rtmp')
     endpoint = html.find('file_link')-3
     #remove crap from string
     rtmp = html[startpoint:endpoint]                
-    rtmp = rtmp.replace('\\','')    
-    startpoint = rtmp.find('/live')
+    rtmp = rtmp.replace('\\','')
+    if (isFlash == True):
+        startpoint = rtmp.find('/rtplive')
+    else:
+        startpoint = rtmp.find('/live')
     endpoint = len(rtmp)
     app = rtmp[startpoint+1:endpoint]
     startpoint = html.find('file_link')+len('file_link')+3
@@ -694,6 +701,10 @@ def playIssueStream(tv_username, tv_password, url):
     #log(html)
     #parse html for flashplayer link
     startpoint = html.find('http')
+    isFlash = False
+    if (startpoint == -1):
+        isFlash = True
+        startpoint = html.find('rtmp')
     endpoint = html.find('file_link')-3
     #remove / from string
     rtmp = html[startpoint:endpoint]                
