@@ -43,3 +43,7 @@ Todo: Need function to delete cookie file
 - fixed issue live and timeshift streams not playing after website updates 
  1.0.2 / 2.0.2
 - updated login method
+
+3.0.1
+- added check to handle html5 and flash player stream
+- 
